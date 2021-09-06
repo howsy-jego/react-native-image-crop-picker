@@ -201,9 +201,11 @@ RCT_EXPORT_METHOD(openCamera:(NSDictionary *)options
                     return;
                 }
                 
-                [picker dismissViewControllerAnimated:YES completion:[self waitAnimationEnd:^{
-                    self.resolve(video);
-                }]];
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^ {
+                  [picker dismissViewControllerAnimated:YES completion:[self waitAnimationEnd:^{
+                     self.resolve(video);
+                  }]];
+                }];
             });
         }
          ];
